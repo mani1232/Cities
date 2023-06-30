@@ -9,6 +9,11 @@ version = findProperty("version")!!
 var projectName = findProperty("app-name")
 
 
+dependencies {
+    implementation(project(":city-app"))
+}
+
+
 allprojects {
 
     apply(plugin = "java")
