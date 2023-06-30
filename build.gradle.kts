@@ -21,6 +21,11 @@ allprojects {
     }
 
     dependencies {
+        // Local .jar libs
+        compileOnly(fileTree("/lib") {
+            include("*.jar")
+        })
+
         testImplementation(platform("org.junit:junit-bom:5.9.1"))
         testImplementation("org.junit.jupiter:junit-jupiter")
     }
