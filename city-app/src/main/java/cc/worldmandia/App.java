@@ -30,7 +30,7 @@ public class App {
         dataBase.getDataBaseAPI().createObject(cityUser);
         //cityUser = dataBase.getDataBaseAPI().getObject("username", "Not Set");
         cityUser.setUsername("OtherUserName");
-        if (dataBase.getDataBaseAPI().updateObject(new CityUser())) {
+        if (dataBase.getDataBaseAPI().updateObject("", "", new CityUser())) {
             System.out.println("Done!");
         }
     }

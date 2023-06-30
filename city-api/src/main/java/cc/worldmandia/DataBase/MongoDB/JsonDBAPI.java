@@ -10,7 +10,7 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     }
 
     @Override
-    public T getObject(String fieldName, Object id) {
+    public T getObject(String fieldId, Object fieldValue) {
         // TODO
         return null;
     }
@@ -22,13 +22,13 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     }
 
     @Override
-    public boolean updateObject(T updateData) {
+    public boolean updateObject(String fieldId, Object fieldValue, T updateData) {
         // TODO
         return false;
     }
 
     @Override
-    public boolean contains(String fieldName, Object id) {
+    public boolean contains(String fieldId, Object fieldValue) {
         // TODO
         return false;
     }

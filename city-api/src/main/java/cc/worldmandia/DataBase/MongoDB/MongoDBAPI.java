@@ -37,11 +37,11 @@ public class MongoDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     }
 
     @Override
-    public T getObject(String fieldName, Object id) {
-        if (id instanceof Long idLong) {
-            return collection.find(Filters.eq(fieldName, idLong)).first();
-        } else if (id instanceof String idString) {
-            return collection.find(Filters.eq(fieldName, idString)).first();
+    public T getObject(String fieldId, Object fieldValue) {
+        if (fieldValue instanceof Long idLong) {
+            return collection.find(Filters.eq(fieldId, idLong)).first();
+        } else if (fieldValue instanceof String idString) {
+            return collection.find(Filters.eq(fieldId, idString)).first();
         }
         return null;
     }
@@ -53,14 +53,14 @@ public class MongoDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     }
 
     @Override
-    public boolean updateObject(T updateData) {
-        UpdateResult updateResult = collection.updateOne(new Document("_id", updateData.getObjectId().toString()), new Document("$set", convertFieldsToBson(updateData)));
+    public boolean updateObject(String fieldId, Object fieldValue, T updateData) {
+        UpdateResult updateResult = collection.updateOne(new Document(fieldId, fieldValue), convertFieldsToBson(updateData));
         return updateResult.wasAcknowledged();
     }
 
     @Override
-    public boolean contains(String fieldName, Object id) {
-        return collection.countDocuments(Filters.eq(fieldName, id)) > 0;
+    public boolean contains(String fieldId, Object fieldValue) {
+        return collection.countDocuments(Filters.eq(fieldId, fieldValue)) > 0;
     }
 
     private Document convertFieldsToBson(T data) {
