@@ -13,4 +13,6 @@ public class CityUser extends ObjectsDefault {
     {
         objectId = ObjectId.get();
     }
+
+    String username;
 }

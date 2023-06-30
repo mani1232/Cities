@@ -12,6 +12,4 @@ import org.bson.types.ObjectId;
 public abstract class ObjectsDefault {
     @BsonId
     ObjectId objectId;
-    String username;
-
 }
