@@ -8,7 +8,16 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class App {
 
+    static App app;
+    DataBase<CityUser> dataBase;
+
     public static void main(String[] args) {
+        app = new App();
+        //app.run(args);
+        app.dbTest();
+    }
+
+    public void run(String[] args) {
         AtomicReference<Integration> integration = new AtomicReference<>();
         if (args.length > 0) {
             Arrays.stream(args).forEach(s -> {
@@ -23,14 +32,13 @@ public class App {
         integration.get().start(args);
     }
 
-    private static void dbTest() {
-        DataBase<CityUser> dataBase = new DataBase<>("mongodb://developer:KJHL6DHBRapuZxx9kq9t9dkZDfjBWfVB@192.168.1.111:27018", "mongo", CityUser.class);
+    private void dbTest() {
+        dataBase = new DataBase<>("mongodb://developer:KJHL6DHBRapuZxx9kq9t9dkZDfjBWfVB@192.168.1.111:27018", "mongo", CityUser.class);
         CityUser cityUser = new CityUser();
         cityUser.setUsername("Test");
         dataBase.getDataBaseAPI().createObject(cityUser);
-        //cityUser = dataBase.getDataBaseAPI().getObject("username", "Not Set");
         cityUser.setUsername("OtherUserName");
-        if (dataBase.getDataBaseAPI().updateObject("", "", new CityUser())) {
+        if (dataBase.getDataBaseAPI().replaceObject("username", "Test", cityUser)) {
             System.out.println("Done!");
         }
     }

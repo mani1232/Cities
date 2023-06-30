@@ -14,6 +14,7 @@ import org.bson.Document;
 import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.conversions.Bson;
 
 import java.util.List;
 
@@ -53,8 +54,8 @@ public class MongoDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     }
 
     @Override
-    public boolean updateObject(String fieldId, Object fieldValue, T updateData) {
-        UpdateResult updateResult = collection.updateOne(new Document(fieldId, fieldValue), convertFieldsToBson(updateData));
+    public boolean replaceObject(String fieldId, Object fieldValue, T updateData) {
+        UpdateResult updateResult = collection.replaceOne(new Document(fieldId, fieldValue), updateData);
         return updateResult.wasAcknowledged();
     }
 

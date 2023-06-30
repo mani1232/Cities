@@ -22,7 +22,7 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     }
 
     @Override
-    public boolean updateObject(String fieldId, Object fieldValue, T updateData) {
+    public boolean replaceObject(String fieldId, Object fieldValue, T updateData) {
         // TODO
         return false;
     }
