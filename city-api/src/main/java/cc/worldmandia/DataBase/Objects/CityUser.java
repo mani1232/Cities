@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class CityUser extends ObjectsDefault {
 
     {
-        objectId = ObjectId.get();
+        objectId = ObjectId.get().toString();
         passedCities = new ArrayList<>();
     }
 
-    String username;
-    String password;
-    ArrayList<String> passedCities;
+    public String username;
+    public String password;
+    public ArrayList<String> passedCities;
 }
