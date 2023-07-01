@@ -37,7 +37,7 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     public T getObject(String fieldId, Object fieldValue) {
         return config.objects.stream().filter(t -> {
             try {
-                return t.getClass().getField(fieldId).get(fieldValue).equals(fieldValue);
+                return t.getClass().getDeclaredField(fieldId).get(t).equals(fieldValue);
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
                 return false;
@@ -73,10 +73,9 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
 
     @Override
     public boolean contains(String fieldId, Object fieldValue) {
-        for (T object : config.objects) {
+        for (T t : config.objects) {
             try {
-                Object value = object.getClass().getDeclaredField(fieldId).get(object);
-                if (value.equals(fieldValue)) {
+                if (t.getClass().getDeclaredField(fieldId).get(t).equals(fieldValue)) {
                     return true;
                 }
             } catch (NoSuchFieldException | IllegalAccessException e) {
