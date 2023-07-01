@@ -13,7 +13,7 @@ public class App {
 
     public static void main(String[] args) {
         app = new App();
-        //app.run(args);
+        app.run(args);
         app.dbTest();
     }
 
@@ -22,6 +22,8 @@ public class App {
         if (args.length > 0) {
             Arrays.stream(args).forEach(s -> {
                 switch (s.toLowerCase()) {
+                    case "discord" -> {
+                    }
                     default -> integration.set(new CityApplication());
                 }
             });
@@ -33,7 +35,7 @@ public class App {
     }
 
     private void dbTest() {
-        dataBase = new DataBase<>("mongodb://developer:KJHL6DHBRapuZxx9kq9t9dkZDfjBWfVB@192.168.1.111:27018", "mongo", CityUser.class);
+        dataBase = new DataBase<>("mongodb://developer:KJHL6DHBRapuZxx9kq9t9dkZDfjBWfVB@82.66.203.77:27018", "mongo", CityUser.class);
         CityUser cityUser = new CityUser();
         cityUser.setUsername("Test");
         dataBase.getDataBaseAPI().createObject(cityUser);
