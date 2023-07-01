@@ -14,6 +14,6 @@ public class DataBase<T extends ObjectsDefault> {
     public DataBase(String dbUrlOrPath, String type, Class<T> tClass) {
         this.dbUrlOrPath = dbUrlOrPath;
         if (type.equalsIgnoreCase("mongo")) this.dataBaseAPI = new MongoDBAPI<>(this, tClass);
-        else this.dataBaseAPI = new JsonDBAPI<>(this, tClass);
+        else this.dataBaseAPI = new JsonDBAPI<>(this);
     }
 }
