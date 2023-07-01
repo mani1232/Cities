@@ -1,20 +1,25 @@
 package cc.worldmandia.controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class MainSelectMenu {
 
-    @FXML
-    private ResourceBundle resources;
+    public Button startDiscord;
+    public Button startTelegram;
+    public Button startApp;
 
-    @FXML
-    private URL location;
-
-    @FXML
-    void initialize() {
-
+    public void selectTelegram(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     }
 
+    public void selectDiscord(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    }
+
+    public void selectApp(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    }
 }

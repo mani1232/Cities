@@ -1,22 +1,28 @@
 package cc.worldmandia.controllers;
 
-import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 public class HelloWindow {
 
-    @FXML
-    private ResourceBundle resources;
+    public Button startBtn;
+    public Label text;
 
-    @FXML
-    private URL location;
-
-    @FXML
-    void initialize() {
-
+    public void initApp(ActionEvent actionEvent) {
+        try {
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(new FXMLLoader().load(this.getClass().getResourceAsStream("/MainSelectMenu.fxml"))));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-
 }
 
