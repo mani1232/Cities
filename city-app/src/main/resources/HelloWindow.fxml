@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cc.worldmandia.Controllers.HelloWindow">
+   <children>
+      <Label alignment="CENTER" layoutX="68.0" layoutY="18.0" prefHeight="31.0" prefWidth="263.0" text="Welcome to the &quot;Cities&quot; by Technical Cats " textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="49.0" mnemonicParsing="false" text="START!" />
+   </children>
+</AnchorPane>
