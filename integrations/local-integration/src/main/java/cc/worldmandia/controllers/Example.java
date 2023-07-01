@@ -1,4 +1,4 @@
-package cc.worldmandia;
+package cc.worldmandia.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
