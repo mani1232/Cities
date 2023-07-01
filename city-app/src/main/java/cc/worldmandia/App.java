@@ -14,7 +14,7 @@ public class App {
     public static void main(String[] args) {
         app = new App();
         app.run(args);
-        app.dbTest();
+        //app.dbTest();
     }
 
     public void run(String[] args) {
