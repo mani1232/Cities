@@ -41,7 +41,7 @@ public class App {
         dataBase.getDataBaseAPI().createObject(cityUser);
         cityUser.setUsername("OtherUserName");
         if (dataBase.getDataBaseAPI().replaceObject("username", "Test", cityUser)) {
-            System.out.println("Done!");
+            Utils.getLogger(app.getClass()).info("Done!");
         }
     }
 
