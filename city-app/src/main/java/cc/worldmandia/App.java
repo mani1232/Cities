@@ -7,23 +7,24 @@ import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class App {
-
+    // Test url mongodb: mongodb://developer:KJHL6DHBRapuZxx9kq9t9dkZDfjBWfVB@82.66.203.77:27018
     static App app;
     DataBase<CityUser> dataBase;
 
     public static void main(String[] args) {
         app = new App();
-        //app.run(args);
-        //app.mongodbTest();
-        app.localdbTest();
+        app.run(args);
     }
 
     public void run(String[] args) {
+        dataBase = new DataBase<>("database.json", "local", CityUser.class);
         AtomicReference<Integration> integration = new AtomicReference<>();
         if (args.length > 0) {
             Arrays.stream(args).forEach(s -> {
                 switch (s.toLowerCase()) {
                     case "discord" -> {
+                    }
+                    case "telegram" -> {
                     }
                     default -> integration.set(new CityApplication());
                 }
@@ -33,28 +34,6 @@ public class App {
         }
 
         integration.get().start(args);
-    }
-
-    private void mongodbTest() {
-        dataBase = new DataBase<>("mongodb://developer:KJHL6DHBRapuZxx9kq9t9dkZDfjBWfVB@82.66.203.77:27018", "mongo", CityUser.class);
-        CityUser cityUser = new CityUser();
-        cityUser.setUsername("Test");
-        dataBase.getDataBaseAPI().createObject(cityUser);
-        cityUser.setUsername("OtherUserName");
-        if (dataBase.getDataBaseAPI().replaceObject("username", "Test", cityUser)) {
-            Utils.getLogger(app.getClass()).info("Done!");
-        }
-    }
-
-    private void localdbTest() {
-        dataBase = new DataBase<>("testdb.json", "local", CityUser.class);
-        CityUser cityUser = new CityUser();
-        cityUser.setUsername("Test");
-        dataBase.getDataBaseAPI().createObject(cityUser);
-        cityUser.setUsername("OtherUserName");
-        if (dataBase.getDataBaseAPI().replaceObject("username", "Test", cityUser)) {
-            Utils.getLogger(app.getClass()).info("Done!");
-        }
     }
 
 }
