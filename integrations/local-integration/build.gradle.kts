@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":city-api")))
 }
 
 javafx {
