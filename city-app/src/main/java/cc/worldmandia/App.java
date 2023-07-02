@@ -18,6 +18,8 @@ public class App {
 
     public void run(String[] args) {
         dataBase = new DataBase<>("database.json", "local", CityUser.class);
+        dataBase.getDataBaseAPI().createObject(new CityUser());
+        dataBase.getDataBaseAPI().createObject(new CityUser());
         AtomicReference<Integration> integration = new AtomicReference<>();
         if (args.length > 0) {
             Arrays.stream(args).forEach(s -> {

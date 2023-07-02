@@ -7,6 +7,10 @@ import cc.worldmandia.Utils;
 import com.electronwill.nightconfig.core.conversion.ObjectConverter;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import com.electronwill.nightconfig.core.file.FileNotFoundAction;
+import com.electronwill.nightconfig.core.io.ParsingMode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -15,22 +19,14 @@ import java.util.concurrent.TimeUnit;
 public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     private final ObjectConverter objectConverter;
     private final FileConfig fileConfig;
-
-    Config<T> config;
+    Config config = new Config();
 
     public JsonDBAPI(DataBase<T> tDataBase) {
         objectConverter = new ObjectConverter();
-        config = new Config<>();
-        FileConfig fileConfigTemp;
-        try {
-            fileConfigTemp = FileConfig.builder(tDataBase.getDbUrlOrPath()).autosave().onFileNotFound(FileNotFoundAction.THROW_ERROR).build();
-            objectConverter.toObject(fileConfigTemp, config);
-        } catch (Exception e) {
-            fileConfigTemp = FileConfig.builder(tDataBase.getDbUrlOrPath()).autosave().onFileNotFound(FileNotFoundAction.CREATE_EMPTY).build();
-        }
-        fileConfig = fileConfigTemp;
+        fileConfig = FileConfig.builder(tDataBase.getDbUrlOrPath()).onFileNotFound(FileNotFoundAction.CREATE_EMPTY).parsingMode(ParsingMode.ADD).autosave().build();
         fileConfig.load();
-        Utils.scheduleWithFixedDelay(() -> objectConverter.toConfig(config, fileConfig), 1, 300, TimeUnit.SECONDS); // Save config every 5 min
+        Utils.scheduleWithFixedDelay(() -> objectConverter.toConfig(config, fileConfig), 150, 300, TimeUnit.SECONDS); // Save config every 5 min
+        objectConverter.toObject(fileConfig, config);
     }
 
     @Override
@@ -47,6 +43,7 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
 
     @Override
     public boolean createObject(T newObject) {
+        System.out.println(config.objects.toString());
         config.objects.add(newObject);
         return true;
     }
@@ -87,7 +84,10 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     }
 
 
-    private static class Config<T> {
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    public class Config {
         ArrayList<T> objects = new ArrayList<>();
     }
 }
