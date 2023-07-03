@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class CityApplication extends Application implements Integration {
 
@@ -16,8 +17,15 @@ public class CityApplication extends Application implements Integration {
             Scene scene = new Scene(new FXMLLoader().load(this.getClass().getResourceAsStream("/HelloWindow.fxml")));
             stage.setScene(scene);
             stage.setOnCloseRequest(event -> {
-                event.consume();
-                System.exit(0);
+                try {
+                    if (Utils.executor.awaitTermination(3, TimeUnit.SECONDS)) {
+                        event.consume();
+                    } else {
+                        System.exit(0);
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             });
             stage.setMaxHeight(600);
             stage.setMaxWidth(600);
