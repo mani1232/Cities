@@ -1,5 +1,6 @@
 package cc.worldmandia;
 
+import cc.worldmandia.DataBase.DataBase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 public class CityApplication extends Application implements Integration {
 
+
+    public static DataBase dataBase;
 
     @Override
     public void start(Stage stage) {
@@ -40,7 +43,8 @@ public class CityApplication extends Application implements Integration {
 
 
     @Override
-    public void start(String[] args) {
+    public void start(String[] args, DataBase dataBase) {
         launch(args);
+        CityApplication.dataBase = dataBase;
     }
 }

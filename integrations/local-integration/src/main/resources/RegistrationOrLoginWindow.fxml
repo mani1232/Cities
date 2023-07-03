@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="cc.worldmandia.controllers.RegistsrationOrLoginWindow">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="cc.worldmandia.controllers.RegistrationOrLoginWindow">
     <Button onAction="#loginOrRegister" layoutX="241.0" layoutY="274.0" mnemonicParsing="false" text="Sign in/up">
         <font>
             <Font size="14.0"/>

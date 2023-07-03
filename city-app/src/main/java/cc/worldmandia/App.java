@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class App {
     static App app;
-    DataBase<CityUser> dataBase;
+    static DataBase<CityUser> dataBase;
 
     // Test url mongodb: mongodb://developer:KJHL6DHBRapuZxx9kq9t9dkZDfjBWfVB@82.66.203.77:27018
     String dbUrlOrPath = "database.json";
@@ -36,7 +36,7 @@ public class App {
             integration.set(new CityApplication());
         }
 
-        integration.get().start(args);
+        integration.get().start(args, dataBase);
     }
 
 }
