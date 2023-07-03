@@ -19,7 +19,7 @@
          <Font size="14.0"/>
       </font>
    </Label>
-   <Button fx:id="YourTurnId" layoutX="163.0" layoutY="225.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="93.0"
+   <Button fx:id="YourTurnId" onAction="#nextTurn" layoutX="163.0" layoutY="225.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="93.0"
            text="Your turn">
       <font>
          <Font size="14.0"/>

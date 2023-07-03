@@ -1,33 +1,20 @@
 package cc.worldmandia.controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class RegistsrationOrLoginWindow {
 
 
-    private ResourceBundle resources;
+    public PasswordField password;
+    public TextField login;
 
 
-    private URL location;
+    public void loginOrRegister(ActionEvent actionEvent) {
 
 
-    private Button SignInOrUpId;
-
-
-    private TextField loginId;
-
-
-    private PasswordField passwordId;
-
-
-    void initialize() {
 
     }
-
 }
 

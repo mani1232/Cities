@@ -8,17 +8,17 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="cc.worldmandia.controllers.RegistsrationOrLoginWindow">
-    <Button layoutX="241.0" layoutY="274.0" mnemonicParsing="false" text="Sign in/up">
+    <Button onAction="#loginOrRegister" layoutX="241.0" layoutY="274.0" mnemonicParsing="false" text="Sign in/up">
         <font>
             <Font size="14.0"/>
         </font>
     </Button>
-    <PasswordField layoutX="217.0" layoutY="200.0" promptText="password">
+    <PasswordField fx:id="password" layoutX="217.0" layoutY="200.0" promptText="password">
         <font>
             <Font size="14.0"/>
         </font>
     </PasswordField>
-    <TextField layoutX="217.0" layoutY="126.0" prefHeight="30.0" prefWidth="173.0" promptText="login">
+    <TextField fx:id="login" layoutX="217.0" layoutY="126.0" prefHeight="30.0" prefWidth="173.0" promptText="login">
         <font>
           <Font size="14.0"/>
         </font>
