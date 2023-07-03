@@ -2,55 +2,68 @@ package cc.worldmandia.DataBase.MongoDB;
 
 import cc.worldmandia.DataBase.DataBase;
 import cc.worldmandia.DataBase.DataBaseAPI;
+import cc.worldmandia.DataBase.Objects.LocalDB;
 import cc.worldmandia.DataBase.Objects.ObjectsDefault;
 import cc.worldmandia.Utils;
+import com.electronwill.nightconfig.core.Config;
 import com.electronwill.nightconfig.core.conversion.ObjectConverter;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import com.electronwill.nightconfig.core.file.FileNotFoundAction;
-import com.electronwill.nightconfig.core.io.ParsingMode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
+
     private final ObjectConverter objectConverter;
     private final FileConfig fileConfig;
-    Config config = new Config();
+    LocalDB<T> localDB = new LocalDB<>();
 
-    public JsonDBAPI(DataBase<T> tDataBase) {
+    public JsonDBAPI(DataBase<T> tDataBase, Class<T> tClass) {
         objectConverter = new ObjectConverter();
-        fileConfig = FileConfig.builder(tDataBase.getDbUrlOrPath()).onFileNotFound(FileNotFoundAction.CREATE_EMPTY).parsingMode(ParsingMode.ADD).autosave().build();
+        fileConfig = FileConfig.builder(tDataBase.getDbUrlOrPath()).onFileNotFound(FileNotFoundAction.CREATE_EMPTY).autosave().build();
         fileConfig.load();
-        Utils.scheduleWithFixedDelay(() -> objectConverter.toConfig(config, fileConfig), 150, 300, TimeUnit.SECONDS); // Save config every 5 min
-        objectConverter.toObject(fileConfig, config);
+        List<Config> cfgSections = fileConfig.getOrElse("objects", new ArrayList<>());
+        if (!cfgSections.isEmpty()) {
+            localDB.getObjects().addAll(convertFromConfig(cfgSections, tClass));
+        }
+        Utils.scheduleWithFixedDelay(() -> {
+            Utils.getLogger(this).info("Saved " + localDB.getObjects().size());
+            objectConverter.toConfig(localDB, fileConfig);
+            fileConfig.save();
+        }, 5, 300, TimeUnit.SECONDS); // Save config every 5 min
     }
 
     @Override
     public T getObject(String fieldId, Object fieldValue) {
-        return config.objects.stream().filter(t -> {
+        return localDB.getObjects().stream().filter(t -> {
             try {
-                return t.getClass().getDeclaredField(fieldId).get(t).equals(fieldValue);
+                Object o = t.getClass().getDeclaredField(fieldId).get(t);
+                if (o != null) {
+                    return o.equals(fieldValue);
+                }
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
                 return false;
             }
+            return false;
         }).findFirst().orElse(null);
     }
 
     @Override
     public boolean createObject(T newObject) {
-        System.out.println(config.objects.toString());
-        config.objects.add(newObject);
+        localDB.getObjects().add(newObject);
         return true;
     }
 
     @Override
     public boolean replaceObject(String fieldId, Object fieldValue, T updateData) {
-        Optional<T> objectToUpdate = config.objects.stream().filter(t -> {
+        Optional<T> objectToUpdate = localDB.getObjects().stream().filter(t -> {
             try {
                 return t.getClass().getDeclaredField(fieldId).get(t).equals(fieldValue);
             } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -60,8 +73,8 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
         }).findFirst();
 
         if (objectToUpdate.isPresent()) {
-            int index = config.objects.indexOf(objectToUpdate.get());
-            config.objects.set(index, updateData);
+            int index = localDB.getObjects().indexOf(objectToUpdate.get());
+            localDB.getObjects().set(index, updateData);
             return true;
         }
 
@@ -70,9 +83,10 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
 
     @Override
     public boolean contains(String fieldId, Object fieldValue) {
-        for (T t : config.objects) {
+        for (T t : localDB.getObjects()) {
             try {
-                if (t.getClass().getDeclaredField(fieldId).get(t).equals(fieldValue)) {
+                Object o = t.getClass().getDeclaredField(fieldId).get(t);
+                if (o != null && o.equals(fieldValue)) {
                     return true;
                 }
             } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -83,11 +97,26 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
         return false;
     }
 
-
-    @NoArgsConstructor
-    @Getter
-    @Setter
-    public class Config {
-        ArrayList<T> objects = new ArrayList<>();
+    private List<T> convertFromConfig(List<Config> cfgSections, Class<T> tClass) {
+        return cfgSections.stream().map(section -> {
+            try {
+                T aClass = tClass.getDeclaredConstructor().newInstance();
+                Arrays.stream(tClass.getDeclaredFields()).forEach(field -> {
+                    try {
+                        Object value = section.get(field.getName());
+                        Field targetField = aClass.getClass().getDeclaredField(field.getName());
+                        targetField.setAccessible(true);
+                        targetField.set(aClass, value);
+                    } catch (NoSuchFieldException | IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                return aClass;
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+        }).toList();
     }
+
 }

@@ -20,4 +20,14 @@ public class CityUser extends ObjectsDefault {
     public String username;
     public String password;
     public ArrayList<String> passedCities;
+
+    @Override
+    public String toString() {
+        return "CityUser{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", passedCities=" + passedCities +
+                ", objectId='" + objectId + '\'' +
+                '}';
+    }
 }
