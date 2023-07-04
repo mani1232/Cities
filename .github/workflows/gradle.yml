@@ -44,7 +44,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
     - name: Build
-      run: ./gradlew build --stacktrace
+      run: gradle build
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v3
