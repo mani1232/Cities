@@ -4,6 +4,7 @@ import cc.worldmandia.DataBase.DataBase;
 import cc.worldmandia.DataBase.DataBaseAPI;
 import cc.worldmandia.DataBase.Objects.ObjectsDefault;
 import cc.worldmandia.Utils;
+import com.electronwill.nightconfig.core.ConfigFormat;
 import com.electronwill.nightconfig.core.conversion.ObjectConverter;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import com.electronwill.nightconfig.core.file.FileNotFoundAction;
@@ -12,8 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
@@ -87,7 +87,62 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     @NoArgsConstructor
     @Getter
     @Setter
-    public class Config {
+    public class Config implements com.electronwill.nightconfig.core.Config {
         ArrayList<T> objects = new ArrayList<>();
+
+        @Override
+        public <T> T set(List<String> path, Object value) {
+            return null;
+        }
+
+        @Override
+        public boolean add(List<String> path, Object value) {
+            return false;
+        }
+
+        @Override
+        public <T> T remove(List<String> path) {
+            return null;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public <T> T getRaw(List<String> path) {
+            return null;
+        }
+
+        @Override
+        public boolean contains(List<String> path) {
+            return false;
+        }
+
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public Map<String, Object> valueMap() {
+            return null;
+        }
+
+        @Override
+        public Set<? extends Entry> entrySet() {
+            return null;
+        }
+
+        @Override
+        public ConfigFormat<?> configFormat() {
+            return null;
+        }
+
+        @Override
+        public com.electronwill.nightconfig.core.Config createSubConfig() {
+            return null;
+        }
     }
 }
