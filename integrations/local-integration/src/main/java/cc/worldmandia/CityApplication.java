@@ -1,6 +1,7 @@
 package cc.worldmandia;
 
 import cc.worldmandia.DataBase.DataBase;
+import cc.worldmandia.DataBase.Objects.CityUser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ public class CityApplication extends Application implements Integration {
 
 
     public static DataBase dataBase;
+    public static CityUser user;
 
     @Override
     public void start(Stage stage) {

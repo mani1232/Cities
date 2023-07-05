@@ -15,8 +15,8 @@ public class RegistrationOrLoginWindow {
     public void loginOrRegister(ActionEvent actionEvent) {
         if (CityApplication.dataBase.getDataBaseAPI().contains("username", login.getText())) {
             if (CityApplication.dataBase.getDataBaseAPI().getObject("username", login.getText()) instanceof CityUser cityUser) {
-                if (!cityUser.password.equals(password.getText())) {
-                    return;
+                if (cityUser.password.equals(password.getText())) {
+                    CityApplication.user = cityUser;
                 }
             }
         } else {

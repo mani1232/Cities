@@ -1,5 +1,6 @@
 package cc.worldmandia.controllers;
 
+import cc.worldmandia.CityApplication;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +15,7 @@ public class GameWindow {
     public Label ComputerId;
 
     public void nextTurn(ActionEvent actionEvent) {
-
+        CityApplication.user.passedCities.add("dfghfgh");
+        CityApplication.dataBase.getDataBaseAPI().replaceObject("username", CityApplication.user.username, CityApplication.user);
     }
 }
