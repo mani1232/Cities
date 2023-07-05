@@ -18,7 +18,7 @@ public class HelloWindow {
     public void initApp(ActionEvent actionEvent) {
         try {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(new FXMLLoader().load(this.getClass().getResourceAsStream("/MainSelectMenu.fxml"))));
+            stage.setScene(new Scene(new FXMLLoader().load(this.getClass().getResourceAsStream("/RegistrationOrLoginWindow.fxml"))));
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

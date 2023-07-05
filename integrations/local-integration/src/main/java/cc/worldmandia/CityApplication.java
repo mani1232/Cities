@@ -8,11 +8,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class CityApplication extends Application implements Integration {
 
+    public static ArrayList<String> cities = new ArrayList<>(List.of(
 
+    ));
     public static DataBase dataBase;
     public static CityUser user;
 
