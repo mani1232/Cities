@@ -4,16 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static cc.worldmandia.CityApplication.cities;
-
 public class CityDataBase {
-    private static UsedCities usedCities = new UsedCities();
-    public CityDataBase() {
-        List<String> cities = new ArrayList<>();
-        cities.add("kyiv");
+    private static List<String> cities = new ArrayList<>();
+
+    static {
+        cities.add("Kyiv");
         cities.add("Lviv");
         cities.add("Odesa");
-        cities.add("vinitsa");
+        cities.add("Vinitsa");
+        cities.add("London");
+        cities.add("Paris");
+        cities.add("Berlin");
+        cities.add("Madrid");
+        cities.add("Rome");
+        cities.add("Tokyo");
+        cities.add("New York");
+        cities.add("Sydney");
+        cities.add("Moscow");
+        cities.add("Toronto");
+        cities.add("Cairo");
+        cities.add("Amsterdam");
+        cities.add("Dubai");
+        cities.add("Beijing");
+        cities.add("Sao Paulo");
+        cities.add("Mumbai");
+        cities.add("Bangkok");
     }
 
     public static boolean contains(String city) {
@@ -21,10 +36,10 @@ public class CityDataBase {
     }
 
     public static String getRandomCityFromDataBase(String userInput, UsedCities usedCities) {
-        List<Object> availableCities = new ArrayList<>();
+        List<String> availableCities = new ArrayList<>();
 
         for (String city : cities) {
-            if (!CityDataBase.usedCities.contains(city) && city.toString().startsWith(userInput.substring(userInput.length() - 1))) {
+            if (!usedCities.contains(city) && city.toString().startsWith(userInput.substring(userInput.length() - 1))) {
                 availableCities.add(city);
             }
         }

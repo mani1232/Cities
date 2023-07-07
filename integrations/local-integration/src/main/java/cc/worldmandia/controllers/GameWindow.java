@@ -35,18 +35,15 @@ public class GameWindow {
         } else {
             if (CityDataBase.contains(userInput.toLowerCase()) && !usedCities.contains(userInput.toLowerCase())) {
                 String computerCity = CityDataBase.getRandomCityFromDataBase(userInput, usedCities);
-                ComputerId.setText(computerCity);
-                usedCities.addUserInput(userInput);
-                usedCities.addComputerCity(computerCity);
                 if (computerCity != null) {
                     ComputerId.setText(computerCity);
                     usedCities.addUserInput(userInput);
                     usedCities.addComputerCity(computerCity);
                 } else {
-                    ComputerId.setText("Enter the valid city");
+                    ComputerId.setText("There is no such city in DataBase");
                 }
             } else {
-                ComputerId.setText("Enter the valid city");
+                ComputerId.setText("This city is used");
             }
 
                 // Actions
