@@ -23,7 +23,7 @@ public class CityApplication extends Application implements Integration {
     @Override
     public void start(Stage stage) {
         try {
-            Scene scene = new Scene(new FXMLLoader().load(this.getClass().getResourceAsStream("/HelloWindow.fxml")));
+            Scene scene = new Scene(new FXMLLoader().load(this.getClass().getResourceAsStream("/GameWindow.fxml")));
             stage.setScene(scene);
             stage.setOnCloseRequest(event -> {
                 try {
