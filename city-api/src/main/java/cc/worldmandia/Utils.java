@@ -3,6 +3,7 @@ package cc.worldmandia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -17,5 +18,11 @@ public class Utils {
 
     public static Logger getLogger(Object loggerClass) {
         return LoggerFactory.getLogger(loggerClass.getClass());
+    }
+
+    public static String getRandomCityFromDataBase(String input, List<String> cities) {
+        // TODO Logic
+
+        return "";
     }
 }

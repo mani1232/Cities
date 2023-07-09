@@ -1,6 +1,7 @@
 package cc.worldmandia.controllers;
 
 import cc.worldmandia.CityApplication;
+import cc.worldmandia.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,8 +34,7 @@ public class GameWindow {
             }
         } else {
             if (CityApplication.cities.contains(userInput) && !CityApplication.user.passedCities.contains(userInput)) {
-                //String computerCity = CityDataBase.getRandomCityFromDataBase(userInput, CityApplication.user.passedCities); TODO
-                String computerCity = "";
+                String computerCity = Utils.getRandomCityFromDataBase(userInput, CityApplication.user.passedCities);
                 computer.setText(computerCity);
                 if (computerCity != null) {
                     computer.setText(computerCity);
