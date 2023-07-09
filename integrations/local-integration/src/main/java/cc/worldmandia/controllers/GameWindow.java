@@ -19,16 +19,23 @@ public class GameWindow {
     public Label enterCityName;
     public Button yourTurn;
     public Label computer;
+    public Label result;
 
 
     public void nextTurn(ActionEvent actionEvent) {
+        if (result.isVisible()) {
+            // TODO Result window
+            System.out.println("next window");
+        }
         String userInput = city.getText().trim();
         try {
             String computerText = computer.getText().split(" ")[1];
             if (userInput.startsWith(computerText.substring(computerText.length() - 1).toUpperCase())) {
                 initMethod(userInput, actionEvent);
             } else {
-                computer.setText("You lose");
+                yourTurn.setText("next");
+                result.setText("You lose");
+                result.setVisible(true);
             }
         } catch (Exception ignored) {
             initMethod(userInput, actionEvent);
@@ -52,10 +59,14 @@ public class GameWindow {
                 if (computerCity.isPresent()) {
                     computer.setText("Computer: " + computerCity.get());
                 } else {
-                    computer.setText("You win!");
+                    yourTurn.setText("next");
+                    result.setText("You win!");
+                    result.setVisible(true);
                 }
             } else {
-                computer.setText("There is no such city in DataBase");
+                yourTurn.setText("next");
+                result.setText("You lose");
+                result.setVisible(true);
             }
             CityApplication.dataBase.getDataBaseAPI().replaceObject("username", CityApplication.user.username, CityApplication.user);
         }
