@@ -15,9 +15,10 @@ import java.util.concurrent.TimeUnit;
 public class CityApplication extends Application implements Integration {
 
     public static ArrayList<String> cities = new ArrayList<>(List.of(
-
+            "Kyiv"
     ));
-    public static DataBase dataBase;
+
+    public static DataBase<CityUser> dataBase;
     public static CityUser user;
 
     @Override
@@ -46,7 +47,6 @@ public class CityApplication extends Application implements Integration {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public void start(String[] args, DataBase dataBase) {

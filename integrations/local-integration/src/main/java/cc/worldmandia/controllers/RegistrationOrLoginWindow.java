@@ -20,10 +20,9 @@ public class RegistrationOrLoginWindow {
 
     public void loginOrRegister(ActionEvent actionEvent) {
         if (CityApplication.dataBase.getDataBaseAPI().contains("username", login.getText())) {
-            if (CityApplication.dataBase.getDataBaseAPI().getObject("username", login.getText()) instanceof CityUser cityUser) {
-                if (cityUser.password.equals(password.getText())) {
-                    CityApplication.user = cityUser;
-                }
+            CityUser cityUser = CityApplication.dataBase.getDataBaseAPI().getObject("username", login.getText());
+            if (cityUser.password.equals(password.getText())) {
+                CityApplication.user = cityUser;
             }
         } else {
             CityUser cityUser = new CityUser();
@@ -31,7 +30,6 @@ public class RegistrationOrLoginWindow {
             cityUser.setUsername(login.getText());
             CityApplication.dataBase.getDataBaseAPI().createObject(cityUser);
         }
-
         try {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(new FXMLLoader().load(this.getClass().getResourceAsStream("/GameWindow.fxml"))));
