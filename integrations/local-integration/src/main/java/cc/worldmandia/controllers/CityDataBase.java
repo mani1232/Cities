@@ -35,7 +35,7 @@ public class CityDataBase {
         return cities.contains(city);
     }
 
-    public static String getRandomCityFromDataBase(String userInput, UsedCities usedCities) {
+    public static String getRandomCityFromDataBase(String userInput, List<String> usedCities) {
         List<String> availableCities = new ArrayList<>();
 
         for (String city : cities) {

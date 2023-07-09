@@ -32,8 +32,8 @@ public class GameWindow {
             }
         } else {
             if (CityDataBase.cities.contains(userInput) && !UsedCities.usedCities.contains(userInput)) {
-                String computerCity = CityDataBase.getRandomCityFromDataBase(userInput, (UsedCities) UsedCities.usedCities);
-                ((UsedCities) UsedCities.usedCities).addUserInput(userInput);
+                String computerCity = CityDataBase.getRandomCityFromDataBase(userInput, UsedCities.usedCities);
+                ComputerId.setText(computerCity);
                 if (computerCity != null) {
                     ComputerId.setText(computerCity);
                     ((UsedCities) UsedCities.usedCities).addComputerCity(computerCity);
@@ -45,6 +45,7 @@ public class GameWindow {
             } else if (UsedCities.usedCities.contains(userInput)) {
                 ComputerId.setText("This city is used");
             }
+
 
                 // Actions
 //                CityApplication.user.passedCities.add(userInput);
