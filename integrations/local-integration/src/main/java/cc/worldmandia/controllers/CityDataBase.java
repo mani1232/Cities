@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CityDataBase {
-    private static List<String> cities = new ArrayList<>();
+    public static List<String> cities = new ArrayList<>();
 
     static {
         cities.add("Kyiv");
@@ -39,7 +39,7 @@ public class CityDataBase {
         List<String> availableCities = new ArrayList<>();
 
         for (String city : cities) {
-            if (!usedCities.contains(city) && city.toString().startsWith(userInput.substring(userInput.length() - 1))) {
+            if (!usedCities.contains(city) && city.substring(0, 1).equalsIgnoreCase(userInput.substring(userInput.length() - 1))) {
                 availableCities.add(city);
             }
         }
@@ -49,6 +49,6 @@ public class CityDataBase {
         }
 
         int randomIndex = new Random().nextInt(availableCities.size());
-        return availableCities.get(randomIndex).toString();
+        return availableCities.get(randomIndex);
     }
 }

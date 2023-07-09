@@ -1,19 +1,20 @@
 package cc.worldmandia.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UsedCities {
-    private ArrayList<String> cities = new ArrayList<>();
+    public static List<String> usedCities = new ArrayList<>();
 
     public void addUserInput(String userInput) {
-        cities.add(userInput);
+        usedCities.add(userInput);
     }
 
     public void addComputerCity(String computerCity) {
-        cities.add(computerCity);
+        usedCities.add(computerCity);
     }
 
     public boolean contains(String city) {
-        return cities.contains(city);
+        return usedCities.contains(city);
     }
 }

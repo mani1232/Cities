@@ -1,6 +1,5 @@
 package cc.worldmandia.controllers;
 
-import cc.worldmandia.CityApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,7 +18,6 @@ public class GameWindow {
     public Button YourTurnId;
     public Label ComputerId;
 
-    private UsedCities usedCities = new UsedCities();
 
     public void nextTurn(ActionEvent actionEvent) {
         String userInput = CityId.getText().trim().toLowerCase();
@@ -33,22 +31,24 @@ public class GameWindow {
                 throw new RuntimeException(e);
             }
         } else {
-            if (CityDataBase.contains(userInput.toLowerCase()) && !usedCities.contains(userInput.toLowerCase())) {
-                String computerCity = CityDataBase.getRandomCityFromDataBase(userInput, usedCities);
+            if (CityDataBase.cities.contains(userInput) && !UsedCities.usedCities.contains(userInput)) {
+                String computerCity = CityDataBase.getRandomCityFromDataBase(userInput, (UsedCities) UsedCities.usedCities);
+                ((UsedCities) UsedCities.usedCities).addUserInput(userInput);
                 if (computerCity != null) {
                     ComputerId.setText(computerCity);
-                    usedCities.addUserInput(userInput);
-                    usedCities.addComputerCity(computerCity);
+                    ((UsedCities) UsedCities.usedCities).addComputerCity(computerCity);
                 } else {
-                    ComputerId.setText("There is no such city in DataBase");
+                    ComputerId.setText("You win!");
                 }
-            } else {
+            } else if (!CityDataBase.cities.contains(userInput)) {
+                ComputerId.setText("There is no such city in DataBase");
+            } else if (UsedCities.usedCities.contains(userInput)) {
                 ComputerId.setText("This city is used");
             }
 
                 // Actions
-                CityApplication.user.passedCities.add(userInput);
-                CityApplication.dataBase.getDataBaseAPI().replaceObject("username", CityApplication.user.username, CityApplication.user);
+//                CityApplication.user.passedCities.add(userInput);
+//                CityApplication.dataBase.getDataBaseAPI().replaceObject("username", CityApplication.user.username, CityApplication.user);
             }
         }
     }
