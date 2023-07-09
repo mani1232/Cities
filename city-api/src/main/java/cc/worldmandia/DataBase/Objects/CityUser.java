@@ -14,19 +14,19 @@ public class CityUser extends ObjectsDefault {
 
     {
         objectId = ObjectId.get().toString();
-        passedCities = new ArrayList<>();
+        availableCities = new ArrayList<>();
     }
 
     public String username;
     public String password;
-    public ArrayList<String> passedCities;
+    public ArrayList<String> availableCities;
 
     @Override
     public String toString() {
         return "CityUser{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", passedCities=" + passedCities +
+                ", passedCities=" + availableCities +
                 ", objectId='" + objectId + '\'' +
                 '}';
     }

@@ -28,6 +28,8 @@ public class RegistrationOrLoginWindow {
             CityUser cityUser = new CityUser();
             cityUser.setPassword(password.getText());
             cityUser.setUsername(login.getText());
+            cityUser.availableCities.addAll(CityApplication.cities);
+            CityApplication.user = cityUser;
             CityApplication.dataBase.getDataBaseAPI().createObject(cityUser);
         }
         try {

@@ -1,7 +1,6 @@
 package cc.worldmandia.controllers;
 
 import cc.worldmandia.CityApplication;
-import cc.worldmandia.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class GameWindow {
 
@@ -22,8 +22,21 @@ public class GameWindow {
 
 
     public void nextTurn(ActionEvent actionEvent) {
-        String userInput = city.getText().trim().toLowerCase();
+        String userInput = city.getText().trim();
+        try {
+            String computerText = computer.getText().split(" ")[1];
+            if (userInput.startsWith(computerText.substring(computerText.length() - 1).toUpperCase())) {
+                initMethod(userInput, actionEvent);
+            } else {
+                computer.setText("You lose");
+            }
+        } catch (Exception ignored) {
+            initMethod(userInput, actionEvent);
+        }
 
+    }
+
+    private void initMethod(String userInput, ActionEvent actionEvent) {
         if (userInput.equalsIgnoreCase("exit")) {
             try {
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -33,19 +46,16 @@ public class GameWindow {
                 throw new RuntimeException(e);
             }
         } else {
-            if (CityApplication.cities.contains(userInput) && !CityApplication.user.passedCities.contains(userInput)) {
-                String computerCity = Utils.getRandomCityFromDataBase(userInput, CityApplication.user.passedCities);
-                computer.setText(computerCity);
-                if (computerCity != null) {
-                    computer.setText(computerCity);
-                    CityApplication.user.passedCities.add(computerCity);
+            if (CityApplication.user.availableCities.contains(userInput)) {
+                CityApplication.user.availableCities.remove(userInput);
+                Optional<String> computerCity = CityApplication.user.availableCities.stream().filter(s -> s.startsWith(userInput.substring(userInput.length() - 1).toUpperCase())).findAny();
+                if (computerCity.isPresent()) {
+                    computer.setText("Computer: " + computerCity.get());
                 } else {
                     computer.setText("You win!");
                 }
-            } else if (!CityApplication.cities.contains(userInput)) {
+            } else {
                 computer.setText("There is no such city in DataBase");
-            } else if (CityApplication.user.passedCities.contains(userInput)) {
-                computer.setText("This city is used");
             }
             CityApplication.dataBase.getDataBaseAPI().replaceObject("username", CityApplication.user.username, CityApplication.user);
         }
