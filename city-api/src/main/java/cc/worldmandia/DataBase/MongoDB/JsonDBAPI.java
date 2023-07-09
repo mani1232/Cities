@@ -36,7 +36,7 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
             Utils.getLogger(this).info("Saved " + localDB.getObjects().size());
             objectConverter.toConfig(localDB, fileConfig);
             fileConfig.save();
-        }, 5, 300, TimeUnit.SECONDS); // Save config every 5 min
+        }, 3, 15, TimeUnit.SECONDS); // Save config every 10 sec
     }
 
     @Override
