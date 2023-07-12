@@ -24,8 +24,13 @@ public class GameWindow {
 
     public void nextTurn(ActionEvent actionEvent) {
         if (result.isVisible()) {
-            // TODO Result window
-            System.out.println("next window");
+            try {
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(new FXMLLoader().load(getClass().getResourceAsStream("/ResultWindow.fxml"))));
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         String userInput = city.getText().trim();
         try {
@@ -40,7 +45,6 @@ public class GameWindow {
         } catch (Exception ignored) {
             initMethod(userInput, actionEvent);
         }
-
     }
 
     private void initMethod(String userInput, ActionEvent actionEvent) {
@@ -58,6 +62,7 @@ public class GameWindow {
                 Optional<String> computerCity = CityApplication.user.availableCities.stream().filter(s -> s.startsWith(userInput.substring(userInput.length() - 1).toUpperCase())).findAny();
                 if (computerCity.isPresent()) {
                     computer.setText("Computer: " + computerCity.get());
+                    CityApplication.user.availableCities.remove(computerCity);
                 } else {
                     yourTurn.setText("next");
                     result.setText("You win!");
