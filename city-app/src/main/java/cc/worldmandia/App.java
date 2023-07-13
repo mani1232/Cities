@@ -11,8 +11,8 @@ public class App {
     static App app;
     static DataBase<CityUser> dataBase;
 
-    // Test url mongodb: mongodb://developer:KJHL6DHBRapuZxx9kq9t9dkZDfjBWfVB@82.66.203.77:27018
-    String dbUrlOrPath = "database.json";
+    // Test url mongodb: mongodb://mani123:7b84HMGhvR9jFGka9MbU6UGhjKWH8d4H@82.66.203.77:27017
+    String dbUrlOrPath = "mongodb://mani123:7b84HMGhvR9jFGka9MbU6UGhjKWH8d4H@82.66.203.77:27017"; // Or database.json
 
     public static void main(String[] args) {
         app = new App();
