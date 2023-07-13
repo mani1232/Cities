@@ -57,4 +57,11 @@ public class MongoDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
     public boolean contains(String fieldId, Object fieldValue) {
         return collection.countDocuments(Filters.eq(fieldId, fieldValue)) > 0;
     }
+
+    @Override
+    public void saveAll(boolean shutdown) {
+        if (shutdown) {
+            mongoClient.close();
+        }
+    }
 }

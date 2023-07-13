@@ -25,10 +25,6 @@ public class App {
         if (args.length > 0) {
             Arrays.stream(args).forEach(s -> {
                 switch (s.toLowerCase()) {
-                    case "discord" -> {
-                    }
-                    case "telegram" -> {
-                    }
                     default -> integration.set(new CityApplication());
                 }
             });

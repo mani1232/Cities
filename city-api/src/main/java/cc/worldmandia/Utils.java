@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
-    static final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+    public static final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
     public static void scheduleWithFixedDelay(Runnable task, long initialDelay, long delay, TimeUnit unit) {
         executor.scheduleWithFixedDelay(task, initialDelay, delay, unit);

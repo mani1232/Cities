@@ -62,7 +62,7 @@ public class GameWindow {
                 Optional<String> computerCity = CityApplication.user.availableCities.stream().filter(s -> s.startsWith(userInput.substring(userInput.length() - 1).toUpperCase())).findAny();
                 if (computerCity.isPresent()) {
                     computer.setText("Computer: " + computerCity.get());
-                    CityApplication.user.availableCities.remove(computerCity);
+                    CityApplication.user.availableCities.remove(computerCity.get());
                 } else {
                     yourTurn.setText("next");
                     result.setText("You win!");

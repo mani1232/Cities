@@ -97,6 +97,16 @@ public class JsonDBAPI<T extends ObjectsDefault> implements DataBaseAPI<T> {
         return false;
     }
 
+    @Override
+    public void saveAll(boolean shutdown) {
+        if (shutdown) {
+            Utils.executor.shutdownNow();
+        }
+        Utils.getLogger(this).info("Saved " + localDB.getObjects().size());
+        objectConverter.toConfig(localDB, fileConfig);
+        fileConfig.save();
+    }
+
     private List<T> convertFromConfig(List<Config> cfgSections, Class<T> tClass) {
         return cfgSections.stream().map(section -> {
             try {
